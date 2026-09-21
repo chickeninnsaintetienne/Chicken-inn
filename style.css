@@ -1,0 +1,106 @@
+*{box-sizing:border-box}
+:root{
+  --primary:#F05334;        /* Chicken Inn orange-red, taken from the logo */
+  --primary-dark:#d9411f;
+  --header-h:60px;
+}
+html,body{margin:0;padding:0;height:100%;background:#222;overflow:hidden}
+
+/* The menu scrolls inside #viewer, so the page itself never scrolls sideways
+   and the zoom bar always stays put on screen. */
+/* Top bar with logo + name */
+.site-header{
+  position:fixed;top:0;left:0;right:0;z-index:90;
+  height:var(--header-h);
+  padding:0 18px;padding-top:env(safe-area-inset-top,0px);
+  display:flex;align-items:center;
+  background:#fff;
+  border-bottom:3px solid var(--primary);
+  box-shadow:0 2px 10px rgba(0,0,0,.25);
+}
+.brand{
+  display:flex;align-items:center;gap:10px;
+  text-decoration:none;color:var(--primary);
+  -webkit-tap-highlight-color:transparent;
+}
+.brand-logo{height:38px;width:auto;display:block}
+.brand-name{
+  font:800 22px/1 Arial,Helvetica,sans-serif;
+  letter-spacing:.3px;text-transform:uppercase;
+}
+.brand:hover .brand-name{color:var(--primary-dark)}
+
+#viewer{
+  position:fixed;left:0;right:0;bottom:0;
+  top:calc(var(--header-h) + env(safe-area-inset-top,0px));
+  overflow:auto;
+  -webkit-overflow-scrolling:touch;
+  container-type:inline-size;
+}
+#menu{
+  --zoom:1;
+  width:max-content;   /* grows with zoomed images, so you can scroll to the left edge too */
+  min-width:100%;
+  padding:30px 0;
+}
+#menu img{
+  display:block;
+  margin:0 auto;
+  max-width:none;
+  height:auto;
+  width:calc(min(100vw,900px) * var(--zoom));   /* fallback */
+  width:calc(min(100cqw,900px) * var(--zoom));
+  box-shadow:0 3px 15px rgba(0,0,0,.35);
+}
+
+/* Zoom control */
+.zoom{
+  position:fixed;right:18px;
+  top:calc(env(safe-area-inset-top,0px) + (var(--header-h) - 48px) / 2 + 1px);
+  z-index:100;
+  display:flex;align-items:center;gap:7px;
+  padding:6px 8px;border-radius:10px;
+  background:var(--primary);color:white;
+  font:600 14px Arial,sans-serif;
+  -webkit-user-select:none;user-select:none;
+}
+.zoom button{
+  border:0;border-radius:6px;padding:7px 11px;min-width:36px;
+  cursor:pointer;background:white;color:var(--primary);
+  font:700 16px/1 Arial,sans-serif;
+  touch-action:manipulation;            /* no double-tap-to-zoom on the buttons */
+  -webkit-tap-highlight-color:transparent;
+}
+.zoom button.value{
+  background:transparent;color:white;font-size:14px;
+  min-width:52px;padding:7px 4px;
+  font-variant-numeric:tabular-nums;
+}
+
+@media(max-width:600px){
+  :root{--header-h:54px}
+  .site-header{padding:0 14px;padding-top:env(safe-area-inset-top,0px)}
+  .brand-logo{height:34px}
+  .brand-name{font-size:19px}
+  #menu{padding:0}
+  #menu img{box-shadow:none}
+
+  /* Compact pill at the bottom, out of the way of the menu */
+  .zoom{
+    top:auto;right:auto;
+    left:50%;transform:translateX(-50%);
+    bottom:calc(14px + env(safe-area-inset-bottom,0px));
+    gap:2px;padding:5px;border-radius:999px;
+    background:var(--primary);
+    -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+    box-shadow:0 4px 14px rgba(0,0,0,.4);
+  }
+  .zoom button{
+    height:44px;min-width:44px;border-radius:999px;
+    font-size:22px;
+    background:rgba(255,255,255,.22);color:#fff;
+  }
+  .zoom button:active{background:rgba(255,255,255,.4)}
+  .zoom button.value{font-size:14px;min-width:60px;background:transparent}
+  .zoom .reset{display:none}   /* tap the percentage to reset */
+}

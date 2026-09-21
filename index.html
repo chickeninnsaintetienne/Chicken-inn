@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Chicken Inn — Menu</title>
+<meta name="theme-color" content="#F05334">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="https://chickeninn.fr/en" target="_blank" rel="noopener">
+    <img src="logo.webp" alt="" class="brand-logo">
+    <span class="brand-name">Chicken Inn</span>
+  </a>
+</header>
+
+<div class="zoom" role="group" aria-label="Zoom">
+  <button type="button" onclick="changeZoom(-0.1)" aria-label="Zoom out">−</button>
+  <button type="button" id="zoomValue" class="value" onclick="resetZoom()" aria-label="Reset zoom">100%</button>
+  <button type="button" onclick="changeZoom(0.1)" aria-label="Zoom in">+</button>
+  <button type="button" class="reset" onclick="resetZoom()">Reset</button>
+</div>
+
+<div id="viewer">
+  <main id="menu">
+    <img src="page-1.webp" alt="Menu page 1">
+    <img src="page-2.webp" alt="Menu page 2">
+    <img src="page-3.webp" alt="Menu page 3">
+    <img src="page-4.webp" alt="Menu page 4">
+  </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
